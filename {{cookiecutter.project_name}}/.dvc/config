@@ -1,0 +1,4 @@
+[core]
+  remote = dvc_remote
+['remote "dvc_remote"']
+  url = {{cookiecutter.dvc_remote_url}}

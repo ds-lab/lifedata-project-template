@@ -1,0 +1,6 @@
+sample_id,label,annotator_id,created
+Sample_1,0,1,
+Sample_2,1,2,
+Sample_3,1,1,
+Sample_4,0,2,
+Sample_5,1,3,

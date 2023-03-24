@@ -1,0 +1,19 @@
+# This file is used to provide a setup for local development work.
+# It allows you to run a database without much hassle to install one manually.
+# Find more information on what docker-compose is at:
+# https://docs.docker.com/compose/
+# If you haven't heard of docker, start here:
+# https://www.docker.com/resources/what-container
+
+version: '3.7'
+services:
+
+  # lifedata needs a database to operate. You can use your own, or use the one
+  # configured here which is an easy starting place.
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: "lifedata"
+      POSTGRES_PASSWORD: "password-for-development"
+    ports:
+      - "5432:5432"

@@ -1,0 +1,49 @@
+name: {{cookiecutter.project_name}}
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  #  - apple # only necessary for apple silicon
+dependencies:
+  #   - tensorflow-deps # only necessary for apple silicon
+  - hypothesis
+  - ipykernel
+  - numpy
+  - pandas
+  - pip
+  - pre-commit
+  - pytest
+  - python={{cookiecutter.python_version}}
+  - pytorch=1.13.0
+  - pyyaml
+  - tqdm
+  - scikit-learn
+  - torchaudio=0.13
+  - torchvision=0.14
+  - pip:
+      # Data versioning
+      - dvc=={{cookiecutter.dvc_version}}
+
+      # Machine Learning
+      - tensorflow==2.9.0; sys_platform!="darwin" or platform_machine != 'arm64'
+      # Apple Silicon Specific ML stuff (without Rosetta)
+      - tensorflow-macos==2.9.0; sys_platform == 'darwin' and platform_machine == 'arm64'
+      - tensorflow-metal==0.5; sys_platform == 'darwin' and platform_machine == 'arm64'
+
+      - -e .
+      - lifedata
+
+      # Dependencies for documentation
+      - sphinx
+      - sphinx-autodoc-typehints
+      - nbsphinx
+      - sphinxcontrib-plantuml
+      - sphinx-typlog-theme
+      - m2r2
+
+  # # lifedata required packages
+  - nodejs=17
+
+  # NOTE: We enforce a version >1, since conda would otherwise prefer a rather old
+  # version in the defaults channel.
+  - yarn>1

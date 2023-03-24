@@ -1,0 +1,14 @@
+{
+    "project_name": "mylifedataproject",
+    "project_description": "Short project description",
+    "author": "Project Author",
+    "license": "Project License",
+    "python_version": "3.10",
+    "dvc_version": "2.44.0",
+    "git_remote_url": "../local_git_remote",
+    "dvc_remote_url": "../../local_dvc_remote",
+    "_copy_without_render": [
+        "lifedata_api/sampleview/build/*",
+        "lifedata_api/sampleview/public/bootstrap.min.css"
+    ]
+}

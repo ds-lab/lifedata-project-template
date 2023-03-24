@@ -1,0 +1,99 @@
+vars:
+- params.py
+
+stages:
+  data_set_report:
+    cmd: python {{cookiecutter.project_name|lower}}/data_set_report/data_set_report.py
+    deps:
+    - ${RAW_DATA.FOLDER}
+    - {{cookiecutter.project_name|lower}}/data_set_report/
+    outs:
+    - ${DATA_SET_REPORT.FOLDER}
+
+  train_test_split:
+    cmd: python {{cookiecutter.project_name|lower}}/train_test_split/train_test_split.py
+    deps:
+    - ${RAW_DATA.FOLDER}
+    - ${EXTERNAL_DATA.LABELED_FILE}
+    - {{cookiecutter.project_name|lower}}/train_test_split/
+    params:
+    - params.py:
+      - TRAIN_TEST
+      - RANDOM_STATE
+    outs:
+    - ${TRAIN_TEST.FOLDER}
+
+  preprocess:
+    cmd: python {{cookiecutter.project_name|lower}}/preprocess/preprocess.py
+    deps:
+    - ${RAW_DATA.FOLDER}
+    - ${TRAIN_TEST.FOLDER}
+    - {{cookiecutter.project_name|lower}}/preprocess/
+    params:
+    - params.py:
+      - PREPROCESS
+    outs:
+    - ${PREPROCESS.FOLDER}
+
+  model_training:
+    cmd: python {{cookiecutter.project_name|lower}}/model_training/model_training.py
+    deps:
+    - ${PREPROCESS.FOLDER}
+    - ${TRAIN_TEST.FOLDER}
+    - {{cookiecutter.project_name|lower}}/model_training/
+    outs:
+    - ${MODEL_TRAINING.MODEL_FILE}
+    metrics:
+    - ${MODEL_TRAINING.HISTORY_FILE}
+    params:
+    - params.py:
+      - MODEL_TRAINING
+
+  query:
+    cmd: python {{cookiecutter.project_name|lower}}/query/query.py
+    deps:
+    - ${EXTERNAL_DATA.UNLABELED_FILE}
+    - ${EXTERNAL_DATA.LABELED_FILE}
+    - ${MODEL_TRAINING.MODEL_FILE}
+    - {{cookiecutter.project_name|lower}}/query/
+    outs:
+    - ${QUERY.QUERY_SET_FILE}
+    params:
+    - params.py:
+      - QUERY
+
+  semi_supervised:
+    cmd: python {{cookiecutter.project_name|lower}}/semi_supervised/semi_supervised.py
+    deps:
+    - ${EXTERNAL_DATA.UNLABELED_FILE}
+    - ${EXTERNAL_DATA.LABELED_FILE}
+    - ${MODEL_TRAINING.MODEL_FILE}
+    - {{cookiecutter.project_name|lower}}/semi_supervised/
+    outs:
+    - ${SEMI_SUPERVISED.PSEUDOLABEL_SET_FILE}
+    params:
+    - params.py:
+      - SEMI_SUPERVISED
+
+  evaluation:
+    cmd: python {{cookiecutter.project_name|lower}}/evaluation/evaluation.py
+    deps:
+    - ${MODEL_TRAINING.MODEL_FILE}
+    - ${TRAIN_TEST.FOLDER}
+    - {{cookiecutter.project_name|lower}}/evaluation/
+    outs:
+    - ${EVALUATION.FOLDER}
+    params:
+    - params.py:
+      - EVALUATION
+
+  explain:
+    cmd: python {{cookiecutter.project_name|lower}}/explain/explain.py
+    deps:
+    - ${MODEL_TRAINING.MODEL_FILE}
+    - {{cookiecutter.project_name|lower}}/explain/
+    outs:
+    - ${EXPLAIN.FOLDER}
+    params:
+    - params.py:
+      - EXPLAIN

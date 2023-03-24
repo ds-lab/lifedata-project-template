@@ -1,0 +1,17 @@
+
+
+### Jupyter Notebooks ###
+
+# Ignore checkpoints
+**/.ipynb_checkpoints 
+# Ignore notebooks, they're tracked via JupyText
+**/*.ipynb
+
+### Python ### 
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info
+/src

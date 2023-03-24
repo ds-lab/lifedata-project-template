@@ -1,0 +1,22 @@
+name: lifedata-cookiecutter
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - black
+  - dvc
+  - python=3.10
+  - cookiecutter
+  - hypothesis
+  - pytest
+  - pre-commit
+  - pandas
+  - mamba
+  # Dependencies for frontend development
+  # lifedata required packages
+  - nodejs=17
+  # NOTE: We enforce a version >1, since conda would otherwise prefer a rather old
+  # version in the defaults channel.
+  - yarn>1
+  - pip:
+    - pytest-watch
