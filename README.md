@@ -6,9 +6,7 @@ This is a [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template 
 
 ## Usage
 
-We recommend using this template using LIFEDATA's core framework. 
-
-The setup steps to get started can be found in this [repository](https://github.com/ds-lab/lifedata).
+The setup steps to get started can be found [here](https://github.com/ds-lab/lifedata).
 
 Runnning `lifedata init <your lifedata project name>` will create a project following this template. It provides the basis for all important components as in the figure of your own Lifedata project. Components marked with * must be added additional.
 
